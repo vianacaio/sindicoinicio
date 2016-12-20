@@ -1,68 +1,74 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="teste" align="center" style="padding: 30px 0;"><img src="http://sindicoamigo.com.br/ibiza/menu_sa/sindicoamigo/_imgs/logo-big.png"></div>
-                <div class="panel-heading" align="center" style="background: #2980b9; margin-top: 0px; margin-bottom: 30px;"><h4 style="color: #ffffff; text-transform: bold; text-transform: uppercase; ">Login</h4></div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ env('URL_ADMIN_LOGIN') }}">
-                        {{ csrf_field() }}
+        <br>
+        <br>
+        <div class="col s8 offset-s2 z-depth-2">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail</label>
+            <h3 class="center">Síndico Amigo</h3>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+            <form method="POST" action="{{ env('URL_ADMIN_LOGIN') }}">
+                {{ csrf_field() }}
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                <div class="row">
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Senha</label>
+                    <div class="input-field col s12">
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                        <?php $messageError = $errors->has('email') ? "data-error='{$errors->first('email')}'" : null ?>
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                        <input id="email"
+                               type="text"
+                               class="validate {{$messageError ? 'invalid' : $messageError}}"
+                               name="email"
+                               value="{{ old('email') }}"
+                               autofocus>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Lembre-me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                        <label for="email" {!! $messageError !!}>E-Mail</label>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
+                    </div>
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">
-                                    Esqueceu sua senha?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
                 </div>
-            </div>
+
+                <div class="row">
+
+                    <div class="input-field col s12">
+
+                        <?php $messageError = $errors->has('password') ? "data-error='{$errors->first('password')}'" : null ?>
+
+                        <input id="password"
+                               type="password"
+                               class="validate {{$messageError ? 'invalid' : $messageError}}"
+                               name="password"
+                               value="{{ old('password') }}"
+                               >
+
+                        <label for="password" {!! $messageError !!}>Senha</label>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <div class="checkbox">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember"> Lembrar-me</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button type="submit" class="btn">Login</button>
+                        <a class="btn btn-link" href="{{ url('/password/reset') }}">
+                            Esqueceu sua senha?
+                        </a>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
