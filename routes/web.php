@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Gate;
 Route::get('/', function () {
 	if(Gate::allows('access-admin')) {
 
-		return "Usuário com permissão de admin";
+		Route::resource('condominios', 'CondominiosController', ['except' => 'show']);
 	} else {
 		return "Usuário sem permissão de admin";
 	}
@@ -27,3 +27,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+Route::get('admin2', function () {
+    return view('admin_template');
+});
+
+Route::get('test', 'TestController@index');
+
+Route::resource('condominios', 'CondominiosController');

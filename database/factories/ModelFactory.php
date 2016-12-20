@@ -31,3 +31,12 @@ $factory->state(App\User::class, 'admin', function (Faker\Generator $faker) {
         'role' => App\User::ROLE_ADMIN
      ];
 });
+
+$factory->define(App\Entities\Condominio::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+        'no_condominio' => $faker->name,
+        
+    ];
+});
