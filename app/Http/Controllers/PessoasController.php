@@ -7,26 +7,26 @@ namespace App\Http\Controllers;
 
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\CondominioCreateRequest;
-use App\Http\Requests\CondominioUpdateRequest;
-use App\Repositories\CondominioRepository;
+use App\Http\Requests\PessoaCreateRequest;
+use App\Http\Requests\PessoaUpdateRequest;
+use App\Repositories\PessoaRepository;
 
 
 
-class CondominiosController extends Controller
+class PessoasController extends Controller
 {
 
     /**
-     * @var CondominioRepository
+     * @var PessoaRepository
      */
     protected $repository;
 
-   
+    
 
-    public function __construct(CondominioRepository $repository)
+    public function __construct(PessoaRepository $repository)
     {
         $this->repository = $repository;
-        
+       
     }
 
 
@@ -37,67 +37,62 @@ class CondominiosController extends Controller
      */
     public function index()
     {
-        // $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $condominios = $this->repository->paginate();
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $pessoas = $this->repository->all();
 
-        // if (request()->wantsJson()) {
+        if (request()->wantsJson()) {
 
-        //     return response()->json([
-        //         'data' => $condominios,
-        //     ]);
-        // }
+            return response()->json([
+                'data' => $pessoas,
+            ]);
+        }
 
-        return view('admin.condominios.index', compact('condominios'));
+        return view('admin.pessoas.index', compact('pessoas'));
     }
 
 
     public function create() {
 
-        return view('admin.condominios.create');
-
     }
-
-
-
-
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CondominioCreateRequest $request
+     * @param  PessoaCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CondominioCreateRequest $request)
+    public function store(PessoaCreateRequest $request)
     {
 
-       
+        try {
 
-            
-            $this->repository->create($request->all());
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            
+            $pessoa = $this->repository->create($request->all());
 
-            // if ($request->wantsJson()) {
+            $response = [
+                'message' => 'Pessoa created.',
+                'data'    => $pessoa->toArray(),
+            ];
 
-            //     $response = [
-            //     'message' => 'Condominio created.',
-            //     'data'    => $condominio->toArray(),
-            // ];
+            if ($request->wantsJson()) {
 
-            //     return response()->json($response);
-            // }
+                return response()->json($response);
+            }
 
-            return redirect()->route('condominios.index');
-         
-            
-            
-        
+            return redirect()->back()->with('message', $response['message']);
+        } catch (ValidatorException $e) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'error'   => true,
+                    'message' => $e->getMessageBag()
+                ]);
+            }
+
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
-
-
-
-    
+    }
 
 
     // /**
@@ -109,16 +104,16 @@ class CondominiosController extends Controller
     //  */
     // public function show($id)
     // {
-    //     $condominio = $this->repository->find($id);
+    //     $pessoa = $this->repository->find($id);
 
     //     if (request()->wantsJson()) {
 
     //         return response()->json([
-    //             'data' => $condominio,
+    //             'data' => $pessoa,
     //         ]);
     //     }
 
-    //     return view('condominios.show', compact('condominio'));
+    //     return view('pessoas.show', compact('pessoa'));
     // }
 
 
@@ -132,32 +127,32 @@ class CondominiosController extends Controller
     public function edit($id)
     {
 
-        $condominio = $this->repository->find($id);
+        $pessoa = $this->repository->find($id);
 
-        return view('condominios.edit', compact('condominio'));
+        return view('pessoas.edit', compact('pessoa'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  CondominioUpdateRequest $request
+     * @param  PessoaUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      */
-    public function update(CondominioUpdateRequest $request, $id)
+    public function update(PessoaUpdateRequest $request, $id)
     {
 
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $condominio = $this->repository->update($id, $request->all());
+            $pessoa = $this->repository->update($id, $request->all());
 
             $response = [
-                'message' => 'Condominio updated.',
-                'data'    => $condominio->toArray(),
+                'message' => 'Pessoa updated.',
+                'data'    => $pessoa->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -195,11 +190,11 @@ class CondominiosController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Condominio deleted.',
+                'message' => 'Pessoa deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Condominio deleted.');
+        return redirect()->back()->with('message', 'Pessoa deleted.');
     }
 }

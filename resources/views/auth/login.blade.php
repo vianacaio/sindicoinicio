@@ -1,23 +1,24 @@
-@extends('layouts.admin')
+@extends('layouts.home')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <br>
-        <br>
-        <div class="col s8 offset-s2 z-depth-2">
+<div class="container full-height">
+    <div class="row full-height">
 
-            <h3 class="center">Síndico Amigo</h3>
+        <div id="login-container" class="small-12 medium-6 medium-offset-3 large-4 large-offset-4 columns full-height">
+
+            <figure class="text-center">
+              <img src="{{ asset('img/logo-big.png') }}" alt="">
+            </figure>
 
             <form method="POST" action="{{ env('URL_ADMIN_LOGIN') }}">
                 {{ csrf_field() }}
 
-                <div class="row">
+                
 
                     <div class="input-field col s12">
 
                         <?php $messageError = $errors->has('email') ? "data-error='{$errors->first('email')}'" : null ?>
-
+                        <label for="email" {!! $messageError !!}>E-Mail</label>
                         <input id="email"
                                type="text"
                                class="validate {{$messageError ? 'invalid' : $messageError}}"
@@ -25,18 +26,13 @@
                                value="{{ old('email') }}"
                                autofocus>
 
-                        <label for="email" {!! $messageError !!}>E-Mail</label>
-
                     </div>
-
-                </div>
-
-                <div class="row">
 
                     <div class="input-field col s12">
 
                         <?php $messageError = $errors->has('password') ? "data-error='{$errors->first('password')}'" : null ?>
 
+                        <label for="password" {!! $messageError !!}>Senha</label>
                         <input id="password"
                                type="password"
                                class="validate {{$messageError ? 'invalid' : $messageError}}"
@@ -44,29 +40,28 @@
                                value="{{ old('password') }}"
                                >
 
-                        <label for="password" {!! $messageError !!}>Senha</label>
-
                     </div>
 
-                </div>
+                    <div class="small-12 float-left">
+                      <button class="button success small expanded"><i class="fa fa-user" aria-hidden="true"></i> Entrar</button>
+                      <button class="button small expanded"><i class="fa fa-facebook-official" aria-hidden="true"></i> Entrar com o facebook</button>
+                    </div>
 
-                <div class="row">
                     <div class="input-field col s12">
                         <div class="checkbox">
                             <input type="checkbox" id="remember" name="remember">
                             <label for="remember"> Lembrar-me</label>
                         </div>
                     </div>
-                </div>
+                
 
-                <div class="row">
                     <div class="input-field col s12">
-                        <button type="submit" class="btn">Login</button>
+                        <!-- <button type="submit" class="btn">Login</button> -->
                         <a class="btn btn-link" href="{{ url('/password/reset') }}">
                             Esqueceu sua senha?
                         </a>
                     </div>
-                </div>
+                
             </form>
 
         </div>

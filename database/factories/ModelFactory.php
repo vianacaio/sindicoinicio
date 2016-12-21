@@ -40,3 +40,13 @@ $factory->define(App\Entities\Condominio::class, function (Faker\Generator $fake
         
     ];
 });
+
+$factory->define(App\Entities\Pessoa::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+        'no_pessoa' => $faker->name,
+        
+    ];
+});
+

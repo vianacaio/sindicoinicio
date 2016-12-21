@@ -6,14 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Condominio extends Model implements Transformable
+class Pessoa extends Model implements Transformable
 {
     use TransformableTrait;
 
     protected $fillable = [
 
-    	'no_condominio',
-    	
+    	'no_pessoa',
 
     ];
 

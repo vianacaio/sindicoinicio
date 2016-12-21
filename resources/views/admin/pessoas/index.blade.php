@@ -7,9 +7,9 @@
 	
 	<div class="row list-query">
 	
-		<h2>Listagem de Condomínios</h2>
-		<a href="{{route('condominios.create')}}" class="button">Novo Condomínio</a>
-		<table>
+		<h2>Listagem de Pessoas</h2>
+		<hr>
+		<table class="hover">
 			<thead>
 				<tr>
 				<th>#</th>
@@ -20,10 +20,10 @@
 			</thead>
 
 			<tbody>
-				@foreach($condominios as $condominio)
+				@foreach($pessoas as $pessoa)
 				<tr>
-					<td>{{ $condominio->id }}</td>
-					<td>{{ $condominio->no_condominio}}</td>
+					<td>{{ $pessoa->id }}</td>
+					<td>{{ $pessoa->no_pessoa}}</td>
 					<td>
 						Descrição
 					</td>
