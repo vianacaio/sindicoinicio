@@ -1,5 +1,4 @@
 <?php
-
 use App\User;
 /*
 |--------------------------------------------------------------------------
@@ -11,11 +10,9 @@ use App\User;
 | database. Just tell the factory how a default model should look.
 |
 */
-
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
-
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
@@ -23,11 +20,23 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
-
 $factory->state(App\User::class, 'admin', function (Faker\Generator $faker) {
     static $password;
-
     return [
         'role' => App\User::ROLE_ADMIN
      ];
+});
+$factory->define(App\Entities\Condominio::class, function (Faker\Generator $faker) {
+    static $password;
+    return [
+        'no_condominio' => $faker->name,
+        
+    ];
+});
+$factory->define(App\Entities\Pessoa::class, function (Faker\Generator $faker) {
+    static $password;
+    return [
+        'no_pessoa' => $faker->name,
+        
+    ];
 });
