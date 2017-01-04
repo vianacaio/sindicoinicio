@@ -30,11 +30,6 @@ Route::resource('condominios', 'CondominiosController');
 // Route::resource('condominios/create', 'CondominiosController');
 
 
-Route::resource('pessoas', 'PessoasController', ['except' => 'show']);
+Route::resource('pessoas', 'PessoasController');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-// Route::group(['prefix' => 'condominios'], function () {
-//     Route::get('create', function ()    {
-//         return View::make('admin.condominios.create');
-//     });
-// });

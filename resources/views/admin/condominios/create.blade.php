@@ -6,21 +6,17 @@
 <div class="container" class="novo-cond">
 	
 	<div class="row list-query">
-
+		<h4>Novo Condomínio</h4>
 		<!-- ROTA DIFERENTE POIS CONDOMINIOS NAO ESTA DENTRO DE PASTA ADMIN, A ROTA PUXA DO CONTROLLER -->
 		{!! Form::open(['route' => 'condominios.store']) !!}
-    	<div class="row">
-    		<div class="input-field col-s6">
-    			{!! Form::label('name', 'Nome') !!}
-    			{!! Form::text('no_condominio', null) !!}
-    		</div>
+
+				@include('admin.condominios._form')
 
 
-	    		<div class="row">
+				<div class="row">
 	    			{!! Form::submit('Criar condomínio', ['class' => 'button']) !!}
 	    		</div>
 
-    	</div>
 
 
 

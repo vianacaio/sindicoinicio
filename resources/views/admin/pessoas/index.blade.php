@@ -3,12 +3,13 @@
 @section('content')
 
 
+
 <div class="container">
 	
 	<div class="row list-query">
 	
 		<h2>Listagem de Pessoas</h2>
-		<hr>
+		<a href="{{route('pessoas.create')}}" class="button">Nova Pessoa</a>
 		<table class="hover">
 			<thead>
 				<tr>

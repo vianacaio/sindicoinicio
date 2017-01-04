@@ -134,7 +134,7 @@ class CondominiosController extends Controller
 
         $condominio = $this->repository->find($id);
 
-        return view('condominios.edit', compact('condominio'));
+        return view('admin.condominios.edit', compact('condominio'));
     }
 
 
@@ -149,35 +149,26 @@ class CondominiosController extends Controller
     public function update(CondominioUpdateRequest $request, $id)
     {
 
-        try {
+        
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $this->repository->update($request->all(), $id);
 
-            $condominio = $this->repository->update($id, $request->all());
+            
 
-            $response = [
-                'message' => 'Condominio updated.',
-                'data'    => $condominio->toArray(),
-            ];
+            // if ($request->wantsJson()) {
 
-            if ($request->wantsJson()) {
+            //     $response = [
+            //     'message' => 'Condominio updated.',
+            //     'data'    => $condominio->toArray(),
+            // ];
 
-                return response()->json($response);
-            }
+            //     return response()->json($response);
+            // }
 
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+            return redirect()->route('condominios.index');
+        
+           
+        
     }
 
 

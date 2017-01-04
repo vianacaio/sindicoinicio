@@ -47,6 +47,7 @@
                             <li><a href="#">Notificações</a></li>
                             <li><a href="/condominios">Listagem</a></li>
                             <li><a href="/condominios/create">Novo</a></li>
+                            
 
                         </ul>
                     </li>
@@ -54,7 +55,16 @@
                     <li><a href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> Meus dados</a>
                     <li><a href="#"><i class="fa fa-cube" aria-hidden="true"></i> Unidades</a>
                     <li><a href="#"><i class="fa fa-car" aria-hidden="true"></i> Vagas e veículos</a>
-                    <li><a href="/pessoas"><i class="fa fa-address-card" aria-hidden="true"></i> Pessoas autorizadas</a>
+                    <li>
+                        <a href="/pessoas"><i class="fa fa-building" aria-hidden="true"></i> Pessoas Autorizadas</a>
+                        <ul class="menu vertical nested">
+                            <li><a href="#">Chamados</a></li>
+                            <li><a href="#">Notificações</a></li>
+                            <li><a href="/pessoas">Listagem</a></li>
+                            <li><a href="/pessoas/create">Novo</a></li>
+
+                        </ul>
+                    </li>
                     <li><a href="{{ url('/logout') }}" class="link-logout"><i class="fa fa-times" aria-hidden="true"></i> Sair</a>
                 </ul>
 

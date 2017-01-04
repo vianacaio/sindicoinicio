@@ -37,15 +37,15 @@ class PessoasController extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        // $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $pessoas = $this->repository->all();
 
-        if (request()->wantsJson()) {
+        // if (request()->wantsJson()) {
 
-            return response()->json([
-                'data' => $pessoas,
-            ]);
-        }
+        //     return response()->json([
+        //         'data' => $pessoas,
+        //     ]);
+        // }
 
         return view('admin.pessoas.index', compact('pessoas'));
     }
@@ -53,8 +53,12 @@ class PessoasController extends Controller
 
     public function create() {
 
+        return view('admin.pessoas.create');
+
     }
 
+
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -65,33 +69,28 @@ class PessoasController extends Controller
     public function store(PessoaCreateRequest $request)
     {
 
-        try {
+        
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+            
 
-            $pessoa = $this->repository->create($request->all());
+            $this->repository->create($request->all());
 
-            $response = [
-                'message' => 'Pessoa created.',
-                'data'    => $pessoa->toArray(),
-            ];
+            
 
-            if ($request->wantsJson()) {
+            // if ($request->wantsJson()) {
 
-                return response()->json($response);
-            }
+            //     $response = [
+            //     'message' => 'Pessoa created.',
+            //     'data'    => $pessoa->toArray(),
+            // ];
 
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
+            //     return response()->json($response);
+            // }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+            
+
+            return redirect()->route('pessoas.index');
+        
     }
 
 
