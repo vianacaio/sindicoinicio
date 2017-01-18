@@ -33,3 +33,6 @@ Route::resource('condominios', 'CondominiosController');
 Route::resource('pessoas', 'PessoasController');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
+Route::get('/app', function() {
+	return view('layouts.spa');
+});
