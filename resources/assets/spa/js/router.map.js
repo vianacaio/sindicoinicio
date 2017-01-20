@@ -7,14 +7,16 @@ export default {
 
     '/login': {
         name: 'auth.login',
-        component: LoginComponent
+        component: LoginComponent,
+        auth: false
     },
 
 
     '/logout' : {
 
     	name: 'auth.logout',
-    	component: LogoutComponent
+    	component: LogoutComponent,
+        auth: true
 
     },
 
@@ -22,7 +24,8 @@ export default {
 
     '/dashboard': {
         name: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        auth: true
     }
 
 }

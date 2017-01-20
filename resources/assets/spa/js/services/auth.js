@@ -39,6 +39,14 @@ export default {
 
 		},
 
+		refreshToken() {
+			return Jwt.refreshToken().then((response) => {
+				LocalStorage.set(TOKEN, response.data.token);
+				return response;
+
+			});
+		},
+
 	getAuthorizationHeader(){
 		return `Bearer ${LocalStorage.get(TOKEN)}`;
 	},
@@ -46,6 +54,11 @@ export default {
 
 	user() {
 		return LocalStorage.getObject(USER);
+	},
+
+	check() {
+
+		return LocalStorage.get(TOKEN) ? true: false;
 	}
 }
 
