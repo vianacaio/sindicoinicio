@@ -4,7 +4,7 @@ export class Jwt {
 			email: email,
 			password: password
 
-		})
+		});
 	}
 
 	static logout() {
