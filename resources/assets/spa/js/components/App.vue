@@ -3,7 +3,8 @@
 
         <header> 
 
-
+        <menu></menu>
+        
         </header>
 
         <main>
@@ -32,8 +33,13 @@
 
 
 <script type="text/javascript">
+    import MenuComponent from './Menu.vue';
     export default {
-        
+        components: {
+
+            'menu': MenuComponent
+        },
+
         data() {
             return {
                 year: new Date().getFullYear()

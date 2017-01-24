@@ -72,7 +72,7 @@
             goToLogout() {
                 $('#logout-form').submit();
             }
-        }
+        },
 //        data(){
 //            return {
 //                menus: [

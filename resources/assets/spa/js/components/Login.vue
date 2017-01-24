@@ -93,6 +93,8 @@
 
 <script type="text/javascript">
 	import Auth from '../services/auth';
+  
+
 	export default {
 		data() {
 			return {

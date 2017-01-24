@@ -11,7 +11,9 @@ export default {
 
     setObject(key, value) {
         window.localStorage[key] = JSON.stringify(value);
+        
         return this.getObject(key);
+
     },
 
     getObject(key) {
