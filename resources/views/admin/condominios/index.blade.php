@@ -29,7 +29,9 @@
 						Descrição
 					</td>
 					<td>
-						<a href="#"><i class="fa fa-trash" aria-hidden="true"></i>Excluir</a> | 
+						<delete-action action="{{route('condominios.destroy', ['condominio' => $condominio->id])}}" action-element="link-delete-{{$condominio->id}}" csrf-token="{{csrf_token()}}">
+							<a id="link-delete-{{$condominio->id}}" href="{{route('condominios.destroy', ['condominio' => $condominio->id])}}"><i class="fa fa-trash" aria-hidden="true"></i>Excluir</a>
+						</delete-action> | 
 						<a href="{{route('condominios.edit', ['condominio' => $condominio->id])}}"><i class="fa fa-pencil" aria-hidden="true"></i>Editar</a>
 					</td>
 				</tr>

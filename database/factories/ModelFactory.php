@@ -50,3 +50,12 @@ $factory->define(App\Entities\Pessoa::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Entities\Apartamento::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+        'bloco' => rand(1,6),
+        'nu_apt' => rand(100, 1402),
+
+    ];
+});
