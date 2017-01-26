@@ -24,6 +24,7 @@ Route::group(['middleware' => 'cors', 'as' => 'api.'], function() {
 	
 
 	Route::group(['middleware' => 'auth:api'], function() {
+	    Route::resource('apartamentos', 'Api\ApartamentosController', ['except' => ['create', 'edit']]);
 		Route::post('/logout', 'Api\AuthController@logout')->middleware('auth:api')->name('logout');
 		Route::get('/hello-world', function (Request $request) {
     		return response()->json(['message' => 'Hello World']);

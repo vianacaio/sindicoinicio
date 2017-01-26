@@ -27,7 +27,7 @@ class ApartamentosController extends Controller
     public function __construct(ApartamentoRepository $repository)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
+
     }
 
 
@@ -38,17 +38,13 @@ class ApartamentosController extends Controller
      */
     public function index()
     {
-        
+
         $apartamentos = $this->repository->all();
 
-        if (request()->wantsJson()) {
 
-            return response()->json([
-                'data' => $apartamentos,
-            ]);
-        }
 
-        return view('apartamentos.index', compact('apartamentos'));
+
+        return $apartamentos;
     }
 
     /**
@@ -61,33 +57,15 @@ class ApartamentosController extends Controller
     public function store(ApartamentoCreateRequest $request)
     {
 
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $apartamento = $this->repository->create($request->all());
+            return response()->json($apartamento->toArray(), 201);
 
-            $response = [
-                'message' => 'Apartamento created.',
-                'data'    => $apartamento->toArray(),
-            ];
 
-            if ($request->wantsJson()) {
 
-                return response()->json($response);
-            }
 
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+
     }
 
 
@@ -100,16 +78,16 @@ class ApartamentosController extends Controller
      */
     public function show($id)
     {
+
+
         $apartamento = $this->repository->find($id);
 
-        if (request()->wantsJson()) {
 
-            return response()->json([
-                'data' => $apartamento,
-            ]);
-        }
 
-        return view('apartamentos.show', compact('apartamento'));
+            return response()->json($apartamento->toArray());
+
+
+
     }
 
 
@@ -140,35 +118,12 @@ class ApartamentosController extends Controller
     public function update(ApartamentoUpdateRequest $request, $id)
     {
 
-        try {
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $apartamento = $this->repository->update($id, $request->all());
+            $apartamento = $this->repository->update($request->all(), $id);
+             return response()->json($apartamento->toArray(), 201);
 
-            $response = [
-                'message' => 'Apartamento updated.',
-                'data'    => $apartamento->toArray(),
-            ];
 
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
     }
 
 
@@ -181,16 +136,10 @@ class ApartamentosController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
+        $this->repository->delete($id);
 
-        if (request()->wantsJson()) {
 
-            return response()->json([
-                'message' => 'Apartamento deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
 
-        return redirect()->back()->with('message', 'Apartamento deleted.');
+        return response()->json([], 204);
     }
 }

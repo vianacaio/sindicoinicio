@@ -85,7 +85,7 @@ return [
     | systems in place to revoke the token if necessary.
     |
     */
-    'ttl' => env('JWT_TTL', 1),
+    'ttl' => env('JWT_TTL', 60),
     /*
     |--------------------------------------------------------------------------
     | Refresh time to live
